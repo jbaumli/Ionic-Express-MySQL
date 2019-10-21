@@ -1,30 +1,31 @@
-import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
+//**Added Section - Start */
+import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
-//Extra
 import { Observable } from 'rxjs';
 import { AuthResponse } from  '../public/auth-response';
 import { HttpClient } from  '@angular/common/http';
 import { User } from  '../public/user';
 import { tap } from  'rxjs/operators';
-//const TOKEN_KEY = 'auth-token';
+//**Added Section - End */
  
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
+//**Added Section - Start */  
   AUTH_SERVER_ADDRESS:  string  =  'http://localhost:3000';
   authenticationState = new BehaviorSubject(false);
- 
-  constructor(private storage: Storage, private plt: Platform, private httpClient: HttpClient) { 
+//**Added Section - End */ 
+  constructor(private storage: Storage, private plt: Platform, private httpClient: HttpClient) { //**Modified Function */ 
     this.plt.ready().then(() => {
       this.checkToken();
     });
   }
- 
+  //**Added Section - Start */ 
   checkToken() {
-    //this.storage.get(TOKEN_KEY).then(res => {
     this.storage.get("ACCESS_TOKEN").then(res => {
       if (res) {
         this.authenticationState.next(true);
@@ -44,12 +45,6 @@ export class AuthenticationService {
     );
   }
  
-  //login() {
-    //return this.storage.set(TOKEN_KEY, 'Bearer 1234567').then(() => {
-      //this.authenticationState.next(true);
-    //});
-  //}
-
   login(user: User): Observable<AuthResponse> {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
       tap(async (res: AuthResponse) => {
@@ -63,7 +58,6 @@ export class AuthenticationService {
   }
  
   logout() {
-    //return this.storage.remove(TOKEN_KEY).then(() => {
     return this.storage.remove("ACCESS_TOKEN").then(() => {      
       this.authenticationState.next(false);
     });
@@ -72,5 +66,5 @@ export class AuthenticationService {
   isAuthenticated() {
     return this.authenticationState.value;
   }
- 
+  //**Added Section - End */ 
 }

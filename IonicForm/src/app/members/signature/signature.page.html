@@ -1,82 +1,84 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Customer Signature</ion-title>
+    <ion-title>Customer Signature</ion-title> <!--Edit page title-->
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-list>
-      <form [formGroup]="signatureForm" (ngSubmit)="onSubmit(signatureForm.value)">
-  
-        <ion-item>
-          <ion-label position="floating">First Name</ion-label>
-          <ion-input formControlName="firstname" type="text"></ion-input>  
-        </ion-item>
-  
-        <div *ngIf="submitAttempt" class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.firstname">
-            <div class="error-message" *ngIf="signatureForm.get('firstname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-              <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-            </div>
-          </ng-container>
-        </div>
-  
-        <ion-item>
-          <ion-label position="floating">Last Name</ion-label>
-          <ion-input formControlName="lastname" type="text"></ion-input>
-        </ion-item>
-  
-        <div *ngIf="submitAttempt" class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.lastname">
-            <div class="error-message" *ngIf="signatureForm.get('lastname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-              <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-            </div>
-          </ng-container>
-        </div>        
-  
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input formControlName="email" type="text"></ion-input>
-        </ion-item>
-  
-        <div *ngIf="submitAttempt" class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.email">
-            <div class="error-message" *ngIf="signatureForm.get('email').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-              <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-            </div>
-          </ng-container>
-        </div>           
+  <!--Added Section - Start-->
+  <ion-list>
+    <form [formGroup]="signatureForm" (ngSubmit)="onSubmit(signatureForm.value)">
 
-        <ion-item>
-          <ion-label>Birthday</ion-label>
-          <ion-datetime 
-             displayFormat="MMM DD, YYYY" 
-             min="1940-01-01" 
-             max="2020-01-01" 
-             formControlName="birthday"
-           ></ion-datetime>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="firstname" type="text"></ion-input>  
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Cell Phone #</ion-label>
-          <ion-input formControlName="cellphone" type="text"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label>Agree to terms</ion-label>
-          <ion-checkbox formControlName="terms" color="success" slot="start"></ion-checkbox>
-        </ion-item>   
-  
-        <div *ngIf="submitAttempt" class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.terms">
-            <div class="error-message" *ngIf="signatureForm.get('terms').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-              <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-            </div>
-          </ng-container>
-        </div>   
-  
-        <ion-button color="success" type="submit"><ion-icon name="checkmark"></ion-icon>Submit</ion-button>
-  
-      </form>
-    </ion-list>
-  </ion-content>
+      <div *ngIf="submitAttempt" class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.firstname">
+          <div class="error-message" *ngIf="signatureForm.get('firstname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input formControlName="lastname" type="text"></ion-input>
+      </ion-item>
+
+      <div *ngIf="submitAttempt" class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.lastname">
+          <div class="error-message" *ngIf="signatureForm.get('lastname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
+          </div>
+        </ng-container>
+      </div>        
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" type="text"></ion-input>
+      </ion-item>
+
+      <div *ngIf="submitAttempt" class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.email">
+          <div class="error-message" *ngIf="signatureForm.get('email').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
+          </div>
+        </ng-container>
+      </div>           
+
+      <ion-item>
+        <ion-label>Birthday</ion-label>
+        <ion-datetime 
+            displayFormat="MMM DD, YYYY" 
+            min="1940-01-01" 
+            max="2020-01-01" 
+            formControlName="birthday"
+          ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Cell Phone #</ion-label>
+        <ion-input formControlName="cellphone" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Agree to terms</ion-label>
+        <ion-checkbox formControlName="terms" color="success" slot="start"></ion-checkbox>
+      </ion-item>   
+
+      <div *ngIf="submitAttempt" class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.terms">
+          <div class="error-message" *ngIf="signatureForm.get('terms').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
+          </div>
+        </ng-container>
+      </div>   
+
+      <ion-button color="success" type="submit"><ion-icon name="checkmark"></ion-icon>Submit</ion-button>
+
+    </form>
+  </ion-list>
+  <!--Added Section - End-->
+</ion-content>

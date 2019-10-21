@@ -1,5 +1,5 @@
 export interface AuthResponse {
-    //**Added */
+    //**Added Section - Start */
     user: {
         id: number,
         name: string,
@@ -9,5 +9,5 @@ export interface AuthResponse {
         message: any,
         status: any
     }
-    //
+    //**Added Section - End */
 }

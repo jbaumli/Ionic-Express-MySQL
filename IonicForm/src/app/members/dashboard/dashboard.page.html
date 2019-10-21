@@ -1,16 +1,20 @@
 <ion-header>
   <ion-toolbar>
+    <!--Added Section - Start (logout button)-->
     <ion-buttons slot="start">
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>My Dashboard</ion-title>
+    <!--Added Section - End-->
+    <ion-title>My Dashboard</ion-title> <!--Edit page title-->
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  <!--Added Section - Start-->
   <section>
     <header>Customer Sign-In Process</header>
     <ion-button (click)="navigateToDisclaimer()">Start</ion-button>
   </section>
+  <!--Added Section - End-->
 </ion-content>

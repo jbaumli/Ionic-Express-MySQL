@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+//**Added Section - Start */
 import { AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+//**Added Section - End */
 
 @Component({
   selector: 'app-signature',
@@ -11,12 +13,13 @@ import { Router } from '@angular/router';
 })
 export class SignaturePage implements OnInit {
 
-  public signatureForm: FormGroup;
-  public submitAttempt: boolean = false;
+  public signatureForm: FormGroup; //**Added Line */
+  public submitAttempt: boolean = false; //**Added Line */
 
-  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient) { }
+  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient) { } //**Modified Line */
 
   ngOnInit() {
+    //**Added Section - Start */
     this.signatureForm = this.formBuilder.group({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
@@ -28,8 +31,9 @@ export class SignaturePage implements OnInit {
       cellphone: [''],
       terms: new FormControl('false', Validators.requiredTrue)
     });
+    //**Added Section - End */
   }
-
+  //**Added Section - Start */
   validation_messages = {
     'firstname': [{ type: 'required', message: 'First Name is Required' }],
     'lastname': [{ type: 'required', message: 'Last Name is Required' }],
@@ -71,5 +75,5 @@ export class SignaturePage implements OnInit {
     }
 
   get frm() { return this.signatureForm.controls; }
-
+  //**Added Section - End */
 }

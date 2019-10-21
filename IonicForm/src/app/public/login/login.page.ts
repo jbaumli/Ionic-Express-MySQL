@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-//**Added */
-import { AuthenticationService } from './../../services/authentication.service';
-import { Router } from  "@angular/router";
-//
+import { AuthenticationService } from './../../services/authentication.service'; //**Added Line */
+import { Router } from  "@angular/router"; //**Added Line */
 
 @Component({
   selector: 'app-login',
@@ -10,18 +8,14 @@ import { Router } from  "@angular/router";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-//**Added */
-showError: boolean;
-errorMessage: string;
-//
-  constructor(private authService: AuthenticationService, private  router:  Router) { }
+showError: boolean; //**Added Line */
+errorMessage: string; //**Added Line */
+
+  constructor(private authService: AuthenticationService, private  router:  Router) { } //**Modified Line */
 
   ngOnInit() {
-    //**Added */
-    //this.authService.login();
-    //
-
   }
+  //**Added Section - Start */
   login(form){
     this.authService.login(form.value).subscribe(result => {
         this.router.navigateByUrl(`dashboard`);
@@ -31,4 +25,5 @@ errorMessage: string;
         this.errorMessage = error.error.message
       });
   }
+  //**Added Section - End */
 }

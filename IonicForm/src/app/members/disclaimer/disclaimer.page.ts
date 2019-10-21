@@ -1,7 +1,5 @@
-//**Added */
-import { AuthenticationService } from './../../services/authentication.service';
-import { Router } from '@angular/router';
-//
+import { AuthenticationService } from './../../services/authentication.service'; //**Added Line */
+import { Router } from '@angular/router'; //**Added Line */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisclaimerPage implements OnInit {
 
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  constructor(private authService: AuthenticationService, private router: Router) { } //**Modified Line */
 
   ngOnInit() {
   }
-
+  //**Added Section - Start */
   navigateToSignature() {
     this.router.navigate(['/signature'])
   }
+  //**Added Section - End */
 
 }

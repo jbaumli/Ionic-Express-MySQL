@@ -1,8 +1,8 @@
 export interface User {
-    //*Added*
+    //*Added Section - Start*
     id: number;
     name: string;
     email: string;
     password: string;
-    //
+    //**Added Section - End */
 }

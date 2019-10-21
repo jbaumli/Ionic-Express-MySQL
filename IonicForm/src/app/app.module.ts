@@ -8,19 +8,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-//**Add */
-import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule } from '@angular/common/http';
-//
+import { IonicStorageModule } from '@ionic/storage'; //**Added Line */
+import { HttpClientModule } from '@angular/common/http'; //**Added Line */
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-  //**Add */
-    IonicStorageModule.forRoot(),
-    HttpClientModule
-  //  
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, //** Modified Line - (add ending comma) */
+    IonicStorageModule.forRoot(), //**Added Line */
+    HttpClientModule //**Added Line */
   ],
   providers: [
     StatusBar,
