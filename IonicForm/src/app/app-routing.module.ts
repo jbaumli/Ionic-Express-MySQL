@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'dashboard', loadChildren: './members/dashboard/dashboard.module#DashboardPageModule' },
   { path: 'disclaimer', loadChildren: './members/disclaimer/disclaimer.module#DisclaimerPageModule' },
   { path: 'signature', loadChildren: './members/signature/signature.module#SignaturePageModule' },
-  { path: 'members', canActivate: [AuthGuard], loadChildren: './members/member-routing.module#MemberRoutingModule'}, /** Add */ 
+  { path: 'members', canActivate: [AuthGuard], loadChildren: './members/member-routing.module#MemberRoutingModule'}, /** Added Line */ 
 ];
 
 @NgModule({
