@@ -28,7 +28,7 @@ const mc = mysql.createConnection({
 
 const  findUserByEmail  = (email, cb) => {
     return  mc.query('SELECT * FROM user_login WHERE email = ?',[email], (err, row) => {
-            cb(err, row);
+        cb(err, row);
     });
 }
 
@@ -46,11 +46,11 @@ router.get('/', (req, res) => {
 
 
 router.post('/register', (req, res) => {
-	//Values from form http://localhost:8100/register
+    //Values from form http://localhost:8100/register
     const  name  =  req.body.name;
     const  email  =  req.body.email;
     const  password  =  bcrypt.hashSync(req.body.password);
-	//Works with hardcoded values
+    //Works with hardcoded values
     //const  name  =  'Admin';
     //const  email  =  'Admin@test.com';
     //const  password  =  bcrypt.hashSync('test');
@@ -63,8 +63,7 @@ router.post('/register', (req, res) => {
             const  accessToken  =  jwt.sign({ id:  user[0].id }, SECRET_KEY, {
                 expiresIn:  expiresIn
             });
-            res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn          
-            });
+            res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
         });
     });
 });
@@ -76,7 +75,7 @@ router.post('/login', (req, res) => {
     //console.log(form_password );
     findUserByEmail(email, (err, user) => {
         if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
-		if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });
+        if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });
         const result = bcrypt.compareSync(form_password, user[0].password);
         if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
         //const expiresIn = 24 * 60 * 60;
@@ -99,13 +98,11 @@ const insertCustomer  = (customer, cb) => {
 router.post('/signature', (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
-	const email = req.body.email;
-	const birthday = new Date(req.body.birthday);
-	const cellphone = req.body.cellphone;	
-	const terms = req.body.terms;
-	//console.log(birthday.toISOString().slice(0,10));
+    const email = req.body.email;
+    const birthday = new Date(req.body.birthday);
+    const cellphone = req.body.cellphone;	
+    const terms = req.body.terms;
     insertCustomer([firstname, lastname, email, birthday, cellphone, terms], (err, customer) => {
-		//console.log("Test+3");
         if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
         res.status(200).send({ "message": 'Success!', "status": '200' });
     });
