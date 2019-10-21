@@ -71,8 +71,7 @@ router.post('/login', (req, res) => {
         if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });
         const result = bcrypt.compareSync(form_password, user[0].password);
         if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
-        //const expiresIn = 24 * 60 * 60;
-		const expiresIn = 1;
+        const expiresIn = 24 * 60 * 60;
         const accessToken = jwt.sign({ id: user[0].id }, SECRET_KEY, {
             expiresIn: expiresIn
         });
