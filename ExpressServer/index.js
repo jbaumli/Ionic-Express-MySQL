@@ -16,13 +16,12 @@ app.use(cors());
 router.use(bodyParser.urlencoded({ extended:  true }));
 router.use(bodyParser.json());
 
-// connection configurations
 const mc = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'TestDatabase1!',
     database: 'mysql',
-	port: 2001
+    port: 2001
 });
 
 
@@ -46,15 +45,9 @@ router.get('/', (req, res) => {
 
 
 router.post('/register', (req, res) => {
-    //Values from form http://localhost:8100/register
     const  name  =  req.body.name;
     const  email  =  req.body.email;
     const  password  =  bcrypt.hashSync(req.body.password);
-    //Works with hardcoded values
-    //const  name  =  'Admin';
-    //const  email  =  'Admin@test.com';
-    //const  password  =  bcrypt.hashSync('test');
-
     createUser([name, email, password], (err)=>{
         if(err) return  res.status(500).send("Server error!");
         findUserByEmail(email, (err, user)=>{
