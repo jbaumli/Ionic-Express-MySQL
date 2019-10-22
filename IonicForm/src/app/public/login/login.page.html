@@ -1,22 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Admin Login Page</ion-title><!--Edit page title-->
-  </ion-toolbar>
+  <!--<ion-toolbar>
+    <ion-title>Admin Login Page</ion-title>
+  </ion-toolbar>-->
 </ion-header>
   
 <ion-content padding class="animated fadeIn login auth-page">
+  <!--Added Section - Start-->
   <div class="theme-bg"></div>
   <div class="auth-content">
-    <!-- Logo -->
     <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
       <h4 no-margin>
         <ion-text color="light" class="fw700">
           Login Form
         </ion-text>
       </h4>
     </div>
-
-    <!--Added Section - Start-->
     <form [formGroup]="onLoginForm" class="list-form">      
       <ion-row class="ion-justify-content-center">
         <div *ngIf="showError">Error: {{errorMessage}} Please try again</div>
@@ -56,16 +55,15 @@
             </ion-button>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <p text-center>
-            <ion-text color="light">
-                If you don't have an account, please <a routerLink='/register'>
-                  register</a> first!
-            </ion-text>
-          </p>
-      </ion-row>
       </ion-grid>
     </form>
+    <div text-center margin-top>
+      <span (click)="goToRegister()" class="paz" tappable>
+        <ion-text color="light">
+          New here? <strong>Sign Up</strong>
+        </ion-text>
+      </span>
+    </div>
   </div>
   <!--Added Section - End-->
 </ion-content>

@@ -30,12 +30,15 @@ public onLoginForm: FormGroup; //**Added Line */
   //**Added Section - Start */
   login(onLoginForm){
     this.authService.login(onLoginForm.value).subscribe(result => {
-        this.router.navigateByUrl(`dashboard`);
+        this.router.navigateByUrl('dashboard');
       },
       error => {    
         this.showError = true;
         this.errorMessage = error.error.message
       });
+  }  
+  goToRegister() {
+    this.router.navigateByUrl('register');
   }
   //**Added Section - End */
 }
