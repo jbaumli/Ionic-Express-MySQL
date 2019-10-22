@@ -4,13 +4,13 @@
   </ion-toolbar>-->
 </ion-header>
   
-<ion-content padding class="animated fadeIn login auth-page">
+<ion-content class="animated fadeIn login auth-page ion-padding">
   <!--Added Section - Start-->
   <div class="theme-bg"></div>
   <div class="auth-content">
-    <div padding-horizontal text-center class="animated fadeInDown">
+    <div class="animated fadeInDown ion-padding-horizontal ion-text-center">
       <div class="logo"></div>
-      <h4 no-margin>
+      <h4 class="ion-no-margin">
         <ion-text color="light" class="fw700">
           Login Form
         </ion-text>
@@ -24,7 +24,7 @@
         <ion-row color="primary" class="ion-justify-content-center">
           <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
             <div class="ion-padding">
-              <ion-item no-padding class="animated fadeInUp">
+              <ion-item class="ion-no-padding animated fadeInUp">
                 <ion-label position="floating">
                   <ion-icon name="mail" item-start></ion-icon>
                   Email
@@ -36,7 +36,7 @@
                   Required Field
                 </ion-text>
               </p>
-              <ion-item no-padding class="animated fadeInUp">
+              <ion-item class="ion-no-padding animated fadeInUp">
                 <ion-label position="floating">
                   <ion-icon name="lock" item-start></ion-icon>
                   Password
@@ -57,7 +57,7 @@
         </ion-row>
       </ion-grid>
     </form>
-    <div text-center margin-top>
+    <div class="ion-margin-top ion-text-center">
       <span (click)="goToRegister()" class="paz" tappable>
         <ion-text color="light">
           New here? <strong>Sign Up</strong>
