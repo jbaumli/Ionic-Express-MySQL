@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { AuthResponse } from  '../public/auth-response';
-import { HttpClient } from  '@angular/common/http';
+import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { User } from  '../public/user';
 import { tap } from  'rxjs/operators';
 //**Added Section - End */
@@ -18,8 +18,9 @@ export class AuthenticationService {
 //**Added Section - Start */  
   AUTH_SERVER_ADDRESS:  string  =  'http://localhost:3000';
   authenticationState = new BehaviorSubject(false);
+  token:any;
 //**Added Section - End */ 
-  constructor(private storage: Storage, private plt: Platform, private httpClient: HttpClient) { //**Modified Function */ 
+  constructor(private storage: Storage, private plt: Platform, private httpClient: HttpClient, ) { //**Modified Function */ 
     this.plt.ready().then(() => {
       this.checkToken();
     });
@@ -62,7 +63,7 @@ export class AuthenticationService {
       this.authenticationState.next(false);
     });
   }
- 
+
   isAuthenticated() {
     return this.authenticationState.value;
   }

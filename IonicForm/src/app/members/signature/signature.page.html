@@ -1,84 +1,168 @@
+<!--
 <ion-header>
   <ion-toolbar>
-    <ion-title>Customer Signature</ion-title> <!--Edit page title-->
+    <ion-title>Customer Signature</ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+
+<!--
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>
+      Menu
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="secondary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="fw700">Dashboard</ion-text>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" color="medium" (click)="notifications()">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="dark" slot="end">2</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+
+<ion-content class="login auth-page ion-padding">
+    <div class="auth-content">
   <!--Added Section - Start-->
-  <ion-list>
-    <form [formGroup]="signatureForm" (ngSubmit)="onSubmit(signatureForm.value)">
+  <section class="ion-text-center">
+    <ion-text color="light" class="text-secondary text15">Agreement Information</ion-text>
+  </section>
+    <form [formGroup]="signatureForm" class="list-form">  
+        <ion-grid>
+        <ion-row color="primary" class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+              <div class="ion-padding">
 
-      <ion-item>
-        <ion-label position="floating">First Name</ion-label>
-        <ion-input formControlName="firstname" type="text"></ion-input>  
-      </ion-item>
+                <ion-item class="animated fadeInUp ion-no-padding">
+                  <ion-label position="floating">
+                    <ion-icon name="person" item-start></ion-icon>
+                    First Name
+                  </ion-label>
+                  <ion-input color="secondary" type="text" formControlName="firstname"></ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validations.firstname">               
+                <p class="text08" *ngIf="signatureForm.get('firstname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+                  <ion-text color="warning">
+                      {{ validation.message }}
+                  </ion-text>
+                </p>
+              </ng-container>
+            </div> 
+            
+                <ion-item class="animated fadeInUp ion-no-padding">
+                    <ion-label position="floating">
+                      <ion-icon name="person" item-start></ion-icon>
+                      Last Name
+                    </ion-label>
+                    <ion-input color="secondary" type="text" formControlName="lastname"></ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validations.lastname">
+                <p ion-text class="text08" *ngIf="signatureForm.get('lastname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+                  <ion-text color="warning">
+                      {{ validation.message }}
+                  </ion-text>
+                </p>
+              </ng-container>
+            </div>
+                <ion-item class="animated fadeInUp ion-no-padding">
+                    <ion-label position="floating">
+                      <ion-icon name="mail" item-start></ion-icon>
+                      Email
+                    </ion-label>
+                    <ion-input color="secondary" type="text" formControlName="email"></ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validations.email">
+                <p ion-text class="text08" *ngIf="signatureForm.get('email').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+                  <ion-text color="warning">
+                      {{ validation.message }}
+                  </ion-text>
+                </p>
+              </ng-container>
+            </div>
+                <ion-item class="animated fadeInUp ion-no-padding">
+                  <ion-label position="floating">
+                    <ion-icon name="calendar" item-start></ion-icon>
+                    Birthday
+                  </ion-label>
+                  <ion-datetime color="secondary" formControlName="birthday" displayFormat="MMM DD, YYYY" 
+                  min="1940-01-01" 
+                  max="2020-01-01" ></ion-datetime>
+                </ion-item>
 
-      <div *ngIf="submitAttempt" class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.firstname">
-          <div class="error-message" *ngIf="signatureForm.get('firstname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-          </div>
-        </ng-container>
-      </div>
+                <ion-item class="animated fadeInUp ion-no-padding">
+                  <ion-label position="floating">
+                    <ion-icon name="phone-portrait" item-start></ion-icon>
+                    Cell Phone
+                  </ion-label>
+                  <ion-input color="secondary" type="text" formControlName="cellphone"></ion-input>
+                </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Last Name</ion-label>
-        <ion-input formControlName="lastname" type="text"></ion-input>
-      </ion-item>
+                <ion-item>
+                  <ion-label>Agree to terms</ion-label>
+                  <ion-checkbox formControlName="terms" color="success" slot="start"></ion-checkbox>
+                </ion-item>   
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validations.terms">
 
-      <div *ngIf="submitAttempt" class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.lastname">
-          <div class="error-message" *ngIf="signatureForm.get('lastname').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-          </div>
-        </ng-container>
-      </div>        
-
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input formControlName="email" type="text"></ion-input>
-      </ion-item>
-
-      <div *ngIf="submitAttempt" class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.email">
-          <div class="error-message" *ngIf="signatureForm.get('email').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-          </div>
-        </ng-container>
-      </div>           
-
-      <ion-item>
-        <ion-label>Birthday</ion-label>
-        <ion-datetime 
-            displayFormat="MMM DD, YYYY" 
-            min="1940-01-01" 
-            max="2020-01-01" 
-            formControlName="birthday"
-          ></ion-datetime>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Cell Phone #</ion-label>
-        <ion-input formControlName="cellphone" type="text"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Agree to terms</ion-label>
-        <ion-checkbox formControlName="terms" color="success" slot="start"></ion-checkbox>
-      </ion-item>   
-
-      <div *ngIf="submitAttempt" class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.terms">
-          <div class="error-message" *ngIf="signatureForm.get('terms').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
-            <p><ion-icon name="information-circle"></ion-icon> {{ validation.message }}</p>
-          </div>
-        </ng-container>
-      </div>   
-
-      <ion-button color="success" type="submit"><ion-icon name="checkmark"></ion-icon>Submit</ion-button>
-
+                <p ion-text class="text08" *ngIf="signatureForm.get('terms').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+                    <ion-text color="warning">
+                        {{ validation.message }}
+                    </ion-text>
+                  </p>
+                </ng-container>
+              </div>
+                <!--
+                <ion-item class="animated fadeInUp ion-no-padding">
+                  <ion-label position="floating">
+                    <ion-icon name="terms" item-start></ion-icon>
+                    Terms
+                  </ion-label>
+                  <ion-checkbox formControlName="terms" color="success" slot="start"></ion-checkbox>
+                </ion-item>
+              -->
+                <!--
+                <p ion-text class="text08" *ngIf="signatureForm.get('terms').hasError(validation.type) && (signatureForm.dirty || signatureForm.touched)">
+                  <ion-text color="warning">
+                      {{ validation.message }}
+                  </ion-text>
+                </p>
+              -->
+              </div>   
+            <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="onSubmit(signatureForm)" [disabled]="signatureForm.invalid" tappable>
+              <ion-icon name="checkmark"></ion-icon>
+              Submit Information
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </form>
-  </ion-list>
+  </div>
   <!--Added Section - End-->
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="text08">Copyright Information</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

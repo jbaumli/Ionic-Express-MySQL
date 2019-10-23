@@ -1,14 +1,72 @@
+<!--
 <ion-header>
   <ion-toolbar>
-    <ion-title>Disclaimer and Terms of Service</ion-title> <!--Edit page title-->
+    <ion-title>Disclaimer and Terms of Service</ion-title>
   </ion-toolbar>
 </ion-header>
+-->
 
+<!--Added Section - Start-->
+<!--
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>
+      Menu
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+<!--Added Section - End-->
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="secondary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="fw700">Dashboard</ion-text>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" color="medium" (click)="notifications()">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="dark" slot="end">2</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<!--
 <ion-content class="ion-padding">
-  <!--Added Section - Start-->
+
   <p>Disclaimer of Liability. It is understood and agreed that this Agreement is a compromise of disputed claims by and between EDVP and Holder, and that neither the release specified herein nor the negotiation of this Agreement shall be considered as admissions of any liability whatsoever.J.Non-Disparagement. The Parties agree that they will not make any derogatory statements, either oral or written, or otherwise disparage each other, their products, services, work and/or employment, and will take all reasonable steps to prevent others from making derogatory or disparaging statements on their behalf. K.Entire Agreement; No Oral Modification. This Agreement constitutes the complete and entire written agreement of compromise, settlement and release between the Parties and constitutes the complete expression of the terms of the settlement. All prior and contemporaneous agreements, representations, and negotiations are superseded and merged herein. The terms of this Agreement can only be amended or modified by a writing, signed by duly authorized representatives of all Parties hereto, expressly stating that such modification or amendment is intended. L.Confidentiality of Entire Agreement. </p>
   <section>
     <ion-button (click)="navigateToSignature()">Continue</ion-button>
   </section>
-  <!--Added Section - End-->
+
 </ion-content>
+-->
+
+<ion-content class="login auth-page ion-padding">
+  <div class="ion-margin-top">
+    <section class="ion-text-center">
+      <ion-text color="light" class="text-secondary text15">Disclaimer of Liability</ion-text>
+    </section>
+    <section>
+      <ion-text color="light">Disclaimer of Liability. It is understood and agreed that this Agreement is a compromise of disputed claims by and between EDVP and Holder, and that neither the release specified herein nor the negotiation of this Agreement shall be considered as admissions of any liability whatsoever.J.Non-Disparagement. The Parties agree that they will not make any derogatory statements, either oral or written, or otherwise disparage each other, their products, services, work and/or employment, and will take all reasonable steps to prevent others from making derogatory or disparaging statements on their behalf. K.Entire Agreement; No Oral Modification. This Agreement constitutes the complete and entire written agreement of compromise, settlement and release between the Parties and constitutes the complete expression of the terms of the settlement. All prior and contemporaneous agreements, representations, and negotiations are superseded and merged herein. The terms of this Agreement can only be amended or modified by a writing, signed by duly authorized representatives of all Parties hereto, expressly stating that such modification or amendment is intended. L.Confidentiality of Entire Agreement.</ion-text>
+    </section>
+    <section class="ion-text-center">
+      <ion-button (click)="navigateToSignature()"><ion-icon name="arrow-forward"></ion-icon>To Signature</ion-button>
+    </section>
+  </div>  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="text08">Copyright Information</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

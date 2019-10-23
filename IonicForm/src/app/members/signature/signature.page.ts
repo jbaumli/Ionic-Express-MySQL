@@ -34,7 +34,7 @@ export class SignaturePage implements OnInit {
     //**Added Section - End */
   }
   //**Added Section - Start */
-  validation_messages = {
+  validations = {
     'firstname': [{ type: 'required', message: 'First Name is Required' }],
     'lastname': [{ type: 'required', message: 'Last Name is Required' }],
     'email': [{ type: 'required', message: 'Email is Required' }, { type: 'pattern', message: 'Email is not Valid' }],

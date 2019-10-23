@@ -12,6 +12,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  //**Added Section - Start */
+  public appPages = [
+    {
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: 'home'
+    },
+  ];
+  //**Added Section - End */
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -37,4 +47,10 @@ export class AppComponent {
       //**Added Section - End */
     });
   }
+  //**Added Section - Start */
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
+  //**Added Section - End */
 }

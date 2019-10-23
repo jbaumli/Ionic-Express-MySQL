@@ -1,20 +1,64 @@
+<!--
 <ion-header>
   <ion-toolbar>
-    <!--Added Section - Start (logout button)-->
+
     <ion-buttons slot="start">
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <!--Added Section - End-->
-    <ion-title>My Dashboard</ion-title> <!--Edit page title-->
+
+    <ion-title>My Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  <!--Added Section - Start-->
-  <section>
-    <header>Customer Signature Process</header>
-    <ion-button (click)="navigateToDisclaimer()">Start</ion-button>
-  </section>
-  <!--Added Section - End-->
+
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+-->
+
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button color="secondary"></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">
+        <ion-text color="light" class="fw700">Dashboard</ion-text>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button size="small" shape="round" color="medium" (click)="notifications()">
+          <ion-icon name="notifications"></ion-icon>
+          <ion-badge color="dark" slot="end">2</ion-badge>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="login auth-page ion-padding">
+    <div class="ion-margin-top ion-text-center">
+      <section>
+        <ion-text color="light" class="text-secondary text15">Customer Signature Process</ion-text>
+      </section>
+      <section>
+        <ion-button (click)="navigateToDisclaimer()"><ion-icon name="arrow-forward"></ion-icon>To Disclaimer</ion-button>
+      </section>
+    </div>  
+
+
+<!--Added Section - End-->
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="text08">Copyright Information</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

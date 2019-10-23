@@ -31,6 +31,7 @@ public onLoginForm: FormGroup; //**Added Line */
   login(onLoginForm){
     this.authService.login(onLoginForm.value).subscribe(result => {
         this.router.navigateByUrl('dashboard');
+        this.onLoginForm.reset()
       },
       error => {    
         this.showError = true;
