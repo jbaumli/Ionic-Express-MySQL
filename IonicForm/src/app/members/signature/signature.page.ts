@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //**Added Section - Start */
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -15,8 +15,8 @@ export class SignaturePage implements OnInit {
 
   public signatureForm: FormGroup; //**Added Line */
   public submitAttempt: boolean = false; //**Added Line */
-
-  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient) { } //**Modified Line */
+  
+  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient, public toastController: ToastController) { } //**Modified Line */
 
   ngOnInit() {
     //**Added Section - Start */
@@ -47,8 +47,17 @@ export class SignaturePage implements OnInit {
       message: 'Thank You!',
       buttons: [{ text: 'Close', role: 'ok', handler: () => {this.signatureForm.reset(); this.router.navigateByUrl('/dashboard')}}]
     });
-
     await alert.present();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      header: 'Information Submitted',
+      message: 'Thank You!',
+      position: 'middle',
+      buttons: [{ text: 'Close', role: 'ok', handler: () => {this.signatureForm.reset(); this.router.navigateByUrl('/dashboard')}}]
+    });
+    await toast.present();
   }
 
   sendPostRequest() {
@@ -58,10 +67,9 @@ export class SignaturePage implements OnInit {
     let postData = this.signatureForm.value;
     this.httpClient.post("http://localhost:3000/signature", postData,{responseType: 'text'})
       .subscribe(data => {
-        //console.log(data);
-        this.presentAlert();
+        //this.presentAlert();
+        this.presentToast();
       }, error => {
-        //console.log(error);
     });
   }
 
