@@ -8,8 +8,6 @@ const  bcrypt  =  require('bcryptjs');
 var compression = require('compression');
 var helmet = require('helmet');
 
-const SECRET_KEY = "secretkey23456";
-
 const  app  =  express();
 const  router  =  express.Router();
 
@@ -21,11 +19,11 @@ router.use(bodyParser.urlencoded({ extended:  true }));
 router.use(bodyParser.json());
 
 const mc = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'TestDatabase1!',
-    database: 'mysql',
-    port: 2001
+    host: process.env.dbhost,
+    user: process.env.dbuser,
+    password: process.env.dbpassword,
+    database: process.env.dbdatabase,
+    port: process.env.dbport
 });
 
 
@@ -57,7 +55,7 @@ router.post('/register', (req, res) => {
         findUserByEmail(email, (err, user)=>{
             if (err) return  res.status(500).send('Server error!');  
             const  expiresIn  =  24  *  60  *  60;
-            const  accessToken  =  jwt.sign({ id:  user[0].id }, SECRET_KEY, {
+            const  accessToken  =  jwt.sign({ id:  user[0].id }, process.env.SECRET_KEY, {
                 expiresIn:  expiresIn
             });
             res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
@@ -76,7 +74,7 @@ router.post('/login', (req, res) => {
         const result = bcrypt.compareSync(form_password, user[0].password);
         if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
         const expiresIn = 24 * 60 * 60;
-        const accessToken = jwt.sign({ id: user[0].id }, SECRET_KEY, {
+        const accessToken = jwt.sign({ id: user[0].id }, process.env.SECRET_KEY, {
             expiresIn: expiresIn
         });
         res.status(200).send({ "user": user, "access_token": accessToken, "expires_in": expiresIn, "message": 'Success!', "status": '200' });
