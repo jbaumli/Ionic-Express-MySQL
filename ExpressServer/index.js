@@ -5,6 +5,8 @@ const cors = require('cors')
 const mysql = require('mysql');
 const  jwt  =  require('jsonwebtoken');
 const  bcrypt  =  require('bcryptjs');
+var compression = require('compression');
+var helmet = require('helmet');
 
 const SECRET_KEY = "secretkey23456";
 
@@ -12,7 +14,9 @@ const  app  =  express();
 const  router  =  express.Router();
 
 app.use(cors());
-
+app.use(compression()); //Compress all routes
+app.use(helmet());
+require('dotenv-safe').config();
 router.use(bodyParser.urlencoded({ extended:  true }));
 router.use(bodyParser.json());
 
