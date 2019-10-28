@@ -18,7 +18,7 @@
     </div>
     <form [formGroup]="onLoginForm" class="list-form">      
       <ion-row class="ion-justify-content-center">
-        <div *ngIf="showError">Error: {{errorMessage}} Please try again</div>
+        <div class="text-white" *ngIf="showError">Error: {{errorMessage}} Please try again</div>
       </ion-row>
       <ion-grid>
         <ion-row color="primary" class="ion-justify-content-center">

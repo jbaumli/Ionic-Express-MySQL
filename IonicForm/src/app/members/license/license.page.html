@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="secondary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="fw700">License Details</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="animated fadeIn login auth-page ion-padding">
+  <div class="theme-bg"></div>
+  <div class="auth-content">
+    <div class="animated fadeInDown ion-padding-horizontal ion-text-center">
+      <ion-list>
+        <ion-item>
+          <ion-item *ngFor="let site of sites;">Site ID: {{site.site_id}}</ion-item>
+        </ion-item>
+        <ion-item>
+          <ion-item *ngFor="let site of sites;">Site Key: {{site.site_key}}</ion-item>
+        </ion-item>
+        <ion-item>
+          <ion-item *ngFor="let site of sites;">License Limit: {{site.license_limit}}</ion-item>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="text08">Copyright Information</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -19,6 +19,11 @@ export class AppComponent {
       url: '/dashboard',
       icon: 'home'
     },
+    {
+      title: 'License Details',
+      url: '/license',
+      icon: 'lock'
+    },
   ];
   //**Added Section - End */
 

@@ -8,6 +8,9 @@ import { AuthenticationService } from './../../services/authentication.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  showError: boolean; //**Added Line */
+  errorMessage: string; //**Added Line */
+
   constructor(private  authService:  AuthenticationService, private  router:  Router, private formBuilder: FormBuilder) { } //**Modified Line */
   public onRegisterForm: FormGroup; //**Added Line */
   ngOnInit() {
@@ -28,7 +31,11 @@ export class RegisterPage implements OnInit {
   //**Added Section - Start*/
   register(onRegisterForm) {
     this.authService.register(onRegisterForm.value).subscribe((res) => {
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('dashboard');
+    },
+    error => {    
+      this.showError = true;
+      this.errorMessage = error.error.message
     });
   }
   goToLogin() {

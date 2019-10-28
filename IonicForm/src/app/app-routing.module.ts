@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'dashboard', canActivate: [AuthGuard], loadChildren: './members/dashboard/dashboard.module#DashboardPageModule' }, /** Modified Line */  
   { path: 'disclaimer', canActivate: [AuthGuard], loadChildren: './members/disclaimer/disclaimer.module#DisclaimerPageModule' }, /** Modified Line */  
   { path: 'signature', canActivate: [AuthGuard], loadChildren: './members/signature/signature.module#SignaturePageModule' }, /** Modified Line */  
+  { path: 'license', canActivate: [AuthGuard], loadChildren: './members/license/license.module#LicensePageModule' }, /** Modified Line */  
 ];
 
 @NgModule({

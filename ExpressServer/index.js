@@ -27,8 +27,24 @@ const mc = mysql.createConnection({
 });
 
 
-const  findUserByEmail  = (email, cb) => {
+const findUserByEmail  = (email, cb) => {
     return  mc.query('SELECT * FROM user_login WHERE email = ?',[email], (err, row) => {
+        cb(err, row);
+    });
+}
+
+
+const verifyLicenseDetails  = (email, cb) => {
+	var domain = email.substring(email.lastIndexOf("@") +1);
+    return  mc.query('SELECT * FROM license_details WHERE email_domain = ? AND site_id = ? and site_key = ?', [domain, process.env.site_id, process.env.site_key], (err, row) => {
+        cb(err, row);
+    });
+}
+
+const verifyLicenseCount  = (email, cb) => {
+	var domain = email.substring(email.lastIndexOf("@"));
+    return  mc.query('SELECT COUNT(*) as EMAIL_COUNT FROM user_login WHERE email LIKE ?', ['%' + domain], (err, row) => {
+		//console.log(row);
         cb(err, row);
     });
 }
@@ -45,22 +61,37 @@ router.get('/', (req, res) => {
     res.status(200).send('This is an authentication server');
 });
 
+router.get('/license', (req, res) => {
+    //res.status(200).send('This is an authentication server');
+	res.status(200).send({ "site_id":  "ABC", "site_key":  "GWA9TjApcyAKEhnx", "license_limit":  1});
+});
+
 
 router.post('/register', (req, res) => {
-    const  name  =  req.body.name;
-    const  email  =  req.body.email;
-    const  password  =  bcrypt.hashSync(req.body.password);
-    createUser([name, email, password], (err)=>{
-        if(err) return  res.status(500).send("Server error!");
-        findUserByEmail(email, (err, user)=>{
-            if (err) return  res.status(500).send('Server error!');  
-            const  expiresIn  =  24  *  60  *  60;
-            const  accessToken  =  jwt.sign({ id:  user[0].id }, process.env.SECRET_KEY, {
-                expiresIn:  expiresIn
-            });
-            res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
-        });
-    });
+	const  name  =  req.body.name;
+	const  email  =  req.body.email;
+	const  password  =  bcrypt.hashSync(req.body.password);
+	findUserByEmail(email, (err, user)=>{
+		if (user[0]) return res.status(404).send({ "message": 'User already exists!', "status": '404' });	
+		verifyLicenseDetails(email, (err, license) => {
+			if (err) return res.status(500).send({ "message": 'License check error!', "status": '500' });	
+			if (!license[0]) return res.status(404).send({ "message": 'License not found! Please contact support!', "status": '404' });
+			verifyLicenseCount(email, (err, license_count) => {		
+				if (license_count[0].EMAIL_COUNT >= license[0].license_limit ) return res.status(404).send({ "message": 'License limit exceeded! Please contact support!', "status": '404' });
+				createUser([name, email, password], (err)=>{
+					if(err) return  res.status(500).send("Server error!");
+					findUserByEmail(email, (err, user)=>{
+						if (err) return  res.status(500).send('Server error!');  
+						const  expiresIn  =  24  *  60  *  60;
+						const  accessToken  =  jwt.sign({ id:  user[0].id }, process.env.SECRET_KEY, {
+							expiresIn:  expiresIn
+						});
+						res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
+					});
+				});
+			});
+		});		
+	});
 });
 
 
