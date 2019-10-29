@@ -34,9 +34,9 @@ const findUserByEmail  = (email, cb) => {
 }
 
 
-const verifyLicenseDetails  = (email, cb) => {
-	var domain = email.substring(email.lastIndexOf("@") +1);
-    return  mc.query('SELECT * FROM license_details WHERE email_domain = ? AND site_id = ? and site_key = ?', [domain, process.env.site_id, process.env.site_key], (err, row) => {
+const verifyLicenseDetails  = (email, site_id, cb) => {
+	var domain = email.substring(email.lastIndexOf("@") +1).toLowerCase();
+    return  mc.query('SELECT * FROM license_details WHERE email_domain = ? AND site_id = ? and site_key = ?', [domain, site_id, process.env.site_key], (err, row) => {
         cb(err, row);
     });
 }
@@ -44,7 +44,6 @@ const verifyLicenseDetails  = (email, cb) => {
 const verifyLicenseCount  = (email, cb) => {
 	var domain = email.substring(email.lastIndexOf("@"));
     return  mc.query('SELECT COUNT(*) as EMAIL_COUNT FROM user_login WHERE email LIKE ?', ['%' + domain], (err, row) => {
-		//console.log(row);
         cb(err, row);
     });
 }
@@ -63,17 +62,18 @@ router.get('/', (req, res) => {
 
 router.get('/license', (req, res) => {
     //res.status(200).send('This is an authentication server');
-	res.status(200).send({ "site_id":  "ABC", "site_key":  "GWA9TjApcyAKEhnx", "license_limit":  1});
+	res.status(200).send({ "site_id":  "HwXaSFuv", "site_key":  "GWA9TjApcyAKEhnx", "license_limit":  1});
 });
 
 
 router.post('/register', (req, res) => {
-	const  name  =  req.body.name;
-	const  email  =  req.body.email;
-	const  password  =  bcrypt.hashSync(req.body.password);
+	const name  =  req.body.name;
+	const email  =  req.body.email;
+	const site_id = req.query.site_id; // $_GET["site_id"]
+	const password  =  bcrypt.hashSync(req.body.password);
 	findUserByEmail(email, (err, user)=>{
 		if (user[0]) return res.status(404).send({ "message": 'User already exists!', "status": '404' });	
-		verifyLicenseDetails(email, (err, license) => {
+		verifyLicenseDetails(email, site_id, (err, license) => {
 			if (err) return res.status(500).send({ "message": 'License check error!', "status": '500' });	
 			if (!license[0]) return res.status(404).send({ "message": 'License not found! Please contact support!', "status": '404' });
 			verifyLicenseCount(email, (err, license_count) => {		
@@ -98,7 +98,6 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const email = req.body.email;
     const form_password = req.body.password;
-    //console.log(form_password );
     findUserByEmail(email, (err, user) => {
         if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
         if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });

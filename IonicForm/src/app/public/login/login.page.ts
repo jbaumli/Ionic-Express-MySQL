@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './../../services/authentication.service'; //**Added Line */
 import { Router } from  "@angular/router"; //**Added Line */
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; //**Added Line */
+import { environment} from './../../../environments/environment'; //**Added Line */
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ public onLoginForm: FormGroup; //**Added Line */
   constructor(private authService: AuthenticationService, private  router:  Router, private formBuilder: FormBuilder) { } //**Modified Line */
 
   ngOnInit() {
+    
     //**Added Section - Start */
     this.onLoginForm = this.formBuilder.group({
       'email': [null, Validators.compose([

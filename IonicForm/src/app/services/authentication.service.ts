@@ -8,6 +8,7 @@ import { AuthResponse } from  '../public/auth-response';
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { User } from  '../public/user';
 import { tap } from  'rxjs/operators';
+import { environment} from './../../environments/environment'; //**Added Line */
 //**Added Section - End */
  
 @Injectable({
@@ -35,7 +36,7 @@ export class AuthenticationService {
   }
 
   register(user: User): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register`, user).pipe(
+    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register` + `?site_id=` + environment.site_id, user).pipe(
       tap(async (res:  AuthResponse ) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
