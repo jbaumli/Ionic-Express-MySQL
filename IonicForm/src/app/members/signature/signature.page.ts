@@ -4,6 +4,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 //**Added Section - End */
 
 @Component({
@@ -16,7 +17,7 @@ export class SignaturePage implements OnInit {
   public signatureForm: FormGroup; //**Added Line */
   public submitAttempt: boolean = false; //**Added Line */
   
-  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient, public toastController: ToastController) { } //**Modified Line */
+  constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient, public toastController: ToastController, private storage: Storage) { } //**Modified Line */
 
   ngOnInit() {
     //**Added Section - Start */
@@ -61,9 +62,12 @@ export class SignaturePage implements OnInit {
   }
 
   sendPostRequest() {
+    let token = this.storage.get('ACCESS_TOKEN');
     var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + token);
+    
     let postData = this.signatureForm.value;
     this.httpClient.post("http://localhost:3000/signature", postData,{responseType: 'text'})
       .subscribe(data => {

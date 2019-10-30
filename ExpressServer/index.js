@@ -83,10 +83,11 @@ router.post('/register', (req, res) => {
 					findUserByEmail(email, (err, user)=>{
 						if (err) return  res.status(500).send('Server error!');  
 						const  expiresIn  =  24  *  60  *  60;
-						const  accessToken  =  jwt.sign({ id:  user[0].id }, process.env.SECRET_KEY, {
+						user[0].access_token = jwt.sign({ id:  user[0].id }, process.env.SECRET_KEY, {
 							expiresIn:  expiresIn
 						});
-						res.status(200).send({ "user":  user, "access_token":  accessToken, "expires_in":  expiresIn});
+						user[0].expires_in = expiresIn;
+						res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
 					});
 				});
 			});
@@ -104,10 +105,11 @@ router.post('/login', (req, res) => {
         const result = bcrypt.compareSync(form_password, user[0].password);
         if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
         const expiresIn = 24 * 60 * 60;
-        const accessToken = jwt.sign({ id: user[0].id }, process.env.SECRET_KEY, {
+        user[0].access_token = jwt.sign({ id: user[0].id }, process.env.SECRET_KEY, {
             expiresIn: expiresIn
         });
-        res.status(200).send({ "user": user, "access_token": accessToken, "expires_in": expiresIn, "message": 'Success!', "status": '200' });
+		user[0].expires_in = expiresIn;
+        res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
     });
 });
 
@@ -120,6 +122,14 @@ const insertCustomer  = (customer, cb) => {
 
 
 router.post('/signature', (req, res) => {
+	console.log("Test1");
+	console.log(JSON.stringify(req.headers));
+	if (!req.headers.authorization) {
+		console.log("Test2");
+		return res.status(403).send({ error: 'No credentials sent!' });
+		console.log("Test3");
+	}
+	console.log("Test4");
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;

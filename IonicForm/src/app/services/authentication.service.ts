@@ -39,8 +39,8 @@ export class AuthenticationService {
     return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register` + `?site_id=` + environment.site_id, user).pipe(
       tap(async (res:  AuthResponse ) => {
         if (res.user) {
-          await this.storage.set("ACCESS_TOKEN", res.user.access_token);
-          await this.storage.set("EXPIRES_IN", res.user.expires_in);
+          await this.storage.set("ACCESS_TOKEN", res.user[0].access_token);
+          await this.storage.set("EXPIRES_IN", res.user[0].expires_in);
           this.authenticationState.next(true);
         }
       })
@@ -48,17 +48,17 @@ export class AuthenticationService {
   }
  
   login(user: User): Observable<AuthResponse> {
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
+    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
       tap(async (res: AuthResponse) => {
         if (res.user) {
-          await this.storage.set("ACCESS_TOKEN", res.user.access_token);
-          await this.storage.set("EXPIRES_IN", res.user.expires_in);
+          await this.storage.set("ACCESS_TOKEN", res.user[0].access_token);
+          await this.storage.set("EXPIRES_IN", res.user[0].expires_in);
           this.authenticationState.next(true);
         }
       })
     )
   }
- 
+
   logout() {
     return this.storage.remove("ACCESS_TOKEN").then(() => {      
       this.authenticationState.next(false);
