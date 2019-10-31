@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //**Added Section - Start */
 import { AlertController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 //**Added Section - End */
@@ -13,7 +13,8 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./signature.page.scss'],
 })
 export class SignaturePage implements OnInit {
-
+  showError: boolean; //**Added Line */
+  errorMessage: string; //**Added Line */
   public signatureForm: FormGroup; //**Added Line */
   public submitAttempt: boolean = false; //**Added Line */
   
@@ -63,17 +64,19 @@ export class SignaturePage implements OnInit {
 
   sendPostRequest() {
     let token = this.storage.get('ACCESS_TOKEN');
-    var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + token);
-    
+    const headers = new HttpHeaders()
+    .set('Accept', 'application/json')
+    .set('Content-Type', 'application/json')
+    .set('Authorization',  'Bearer ' + token)
+    .set('responseType', 'text');
     let postData = this.signatureForm.value;
-    this.httpClient.post("http://localhost:3000/signature", postData,{responseType: 'text'})
+    this.httpClient.post("http://localhost:3000/signature", postData, { headers: headers })
       .subscribe(data => {
         //this.presentAlert();
         this.presentToast();
       }, error => {
+          this.showError = true;
+          this.errorMessage = error.error.message
     });
   }
 
