@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  site_id: "HwXaSFuv"
+  site_id: "HwXaSFuv",
+  site_key: "GWA9TjApcyAKEhnx"
 };
 
 /*

@@ -8,6 +8,7 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 var compression = require('compression');
 var helmet = require('helmet');
+var jwtmodule = require('./jwt-module.js');
 
 const app = express();
 const router = express.Router();
@@ -32,6 +33,24 @@ const mc = mysql.createConnection({
 });
 
 
+function jwtVerify (req, res, next) {
+	if (!req.headers.authorization) {
+		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
+	}
+	let token;
+	if (req.headers.authorization) {
+		let type = req.headers.authorization.split(" ")[0];
+		if (type === "Token" || type === "Bearer")
+			token = req.headers.authorization.split(" ")[1];
+	}
+	var legit = jwtmodule.verify(token, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});
+	if (!legit) {
+		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
+	}
+	next()
+};
+
+
 const findUserByEmail  = (email, cb) => {
     return  mc.query('SELECT * FROM user_login WHERE email = ?',[email], (err, row) => {
         cb(err, row);
@@ -39,9 +58,9 @@ const findUserByEmail  = (email, cb) => {
 }
 
 
-const verifyLicenseDetails  = (email, site_id, cb) => {
+const verifyLicenseDetails  = (email, site_id, site_key, cb) => {
 	var domain = email.substring(email.lastIndexOf("@") +1).toLowerCase();
-    return  mc.query('SELECT * FROM license_details WHERE email_domain = ? AND site_id = ? and site_key = ?', [domain, site_id, process.env.site_key], (err, row) => {
+    return  mc.query('SELECT * FROM license_details WHERE email_domain = ? AND site_id = ? and site_key = ?', [domain, site_id, site_key], (err, row) => {
         cb(err, row);
     });
 }
@@ -75,11 +94,11 @@ router.get('/license', (req, res) => {
 router.post('/register', (req, res) => {
 	const name  =  req.body.name;
 	const email  =  req.body.email;
-	const site_id = req.query.site_id; // $_GET["site_id"]
+	const audience = req.headers.audience;
 	const password  =  bcrypt.hashSync(req.body.password);
 	findUserByEmail(email, (err, user)=>{
-		if (user[0]) return res.status(404).send({ "message": 'User already exists!', "status": '404' });	
-		verifyLicenseDetails(email, site_id, (err, license) => {
+		if (user[0]) return res.status(404).send({ "message": 'User already exists!', "status": '404' });		
+		verifyLicenseDetails(email, req.headers.site_id, process.env.site_key, (err, license) => {			
 			if (err) return res.status(500).send({ "message": 'License check error!', "status": '500' });	
 			if (!license[0]) return res.status(404).send({ "message": 'License not found! Please contact support!', "status": '404' });
 			verifyLicenseCount(email, (err, license_count) => {		
@@ -87,15 +106,8 @@ router.post('/register', (req, res) => {
 				createUser([name, email, password], (err)=>{
 					if(err) return  res.status(500).send("Server error!");
 					findUserByEmail(email, (err, user)=>{
-						if (err) return  res.status(500).send('Server error!');  
-						var signOptions = {
-							issuer: process.env.site_key,
-							subject: "Test",
-							//audience: user[0].email,
-							expiresIn:  "12h",
-							algorithm:  "RS512"
-						};
-						var token = jwt.sign({ id: user[0].id }, privateKEY, signOptions);			
+						if (err) return  res.status(500).send('Server error!');  	
+						var token = jwtmodule.sign({ id: user[0].id }, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});						
 						user[0].access_token = token;						
 						res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
 					});
@@ -108,20 +120,13 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
     const email = req.body.email;
-    const form_password = req.body.password;
+    const form_password = req.body.password;	
     findUserByEmail(email, (err, user) => {
         if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
         if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });
         const result = bcrypt.compareSync(form_password, user[0].password);
         if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
-		var signOptions = {
-			issuer: process.env.site_key,
-			subject: "Test",
-			//audience: user[0].email,
-			expiresIn:  "12h",
-			algorithm:  "RS512"
-		};
-		var token = jwt.sign({ id: user[0].id }, privateKEY, signOptions);			
+		var token = jwtmodule.sign({ id: user[0].id }, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});		
 		user[0].access_token = token;
         res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
     });
@@ -135,37 +140,17 @@ const insertCustomer  = (customer, cb) => {
 }
 
 
-router.post('/signature', (req, res) => {
-	if (!req.headers.authorization) {
-		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
-	}
-	let token;
-	if (req.headers.authorization) {
-		let type = req.headers.authorization.split(" ")[0];
-		if (type === "Token" || type === "Bearer")
-			token = req.headers.authorization.split(" ")[1];
-	}
-	var verifyOptions = {
-		issuer: process.env.site_key,
-		subject: "Test",
-		//audience: user[0].email,
-		expiresIn:  "12h",
-		algorithm:  "RS512"
-	};
-	var legit = jwt.verify(token, publicKEY, verifyOptions);
-	if (!legit) {
-		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
-	}
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
-    const email = req.body.email;
-    const birthday = new Date(req.body.birthday);
-    const cellphone = req.body.cellphone;	
-    const terms = req.body.terms;
-    insertCustomer([firstname, lastname, email, birthday, cellphone, terms], (err, customer) => {
-        if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
-        res.status(200).send({ "message": 'Success!', "status": '200' });
-    });
+router.use(jwtVerify).post('/signature', (req, res) => {
+	const firstname = req.body.firstname;
+	const lastname = req.body.lastname;
+	const email = req.body.email;
+	const birthday = new Date(req.body.birthday);
+	const cellphone = req.body.cellphone;	
+	const terms = req.body.terms;
+	insertCustomer([firstname, lastname, email, birthday, cellphone, terms], (err, customer) => {
+		if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
+		res.status(200).send({ "message": 'Success!', "status": '200' });
+	});
 });
 
 

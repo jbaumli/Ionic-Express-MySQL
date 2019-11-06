@@ -36,11 +36,16 @@ export class AuthenticationService {
   }
 
   register(user: User): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register` + `?site_id=` + environment.site_id, user).pipe(
+    const headers = new HttpHeaders()
+    .set('site_id', environment.site_id)
+    .set('audience', user.email)
+    //.set('site_key', environment.site_key)
+    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/register`, user, { headers: headers }).pipe(
       tap(async (res:  AuthResponse ) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user[0].access_token);
           await this.storage.set("EXPIRES_IN", res.user[0].expires_in);
+          await this.storage.set("audience", user.email);
           this.authenticationState.next(true);
         }
       })
@@ -48,11 +53,16 @@ export class AuthenticationService {
   }
  
   login(user: User): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
+    const headers = new HttpHeaders()
+    .set('site_id', environment.site_id)
+    .set('audience', user.email)
+    //.set('site_key', environment.site_key)
+    return this.httpClient.post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/login`, user, { headers: headers }).pipe(
       tap(async (res: AuthResponse) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user[0].access_token);
           await this.storage.set("EXPIRES_IN", res.user[0].expires_in);
+          await this.storage.set("audience", user.email);
           this.authenticationState.next(true);
         }
       })

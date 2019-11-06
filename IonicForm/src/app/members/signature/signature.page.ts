@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { environment} from './../../../environments/environment'; //**Added Line */
 //**Added Section - End */
 
 @Component({
@@ -66,20 +67,32 @@ export class SignaturePage implements OnInit {
   sendPostRequest() {
     var token: string;
     this.storage.get('ACCESS_TOKEN').then((val) => {
-      token = val;
-      const headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .set('Authorization',  'Bearer ' + token)
-      .set('responseType', 'text');
-      let postData = this.signatureForm.value;
-      this.httpClient.post("http://localhost:3000/signature", postData, { headers: headers })
-      .subscribe(data => {
-        this.presentToast();
-      }, error => {
-        this.showError = true;
-        this.errorMessage = error.error.message
-      });
+
+
+
+      this.storage.get("audience").then(res => {
+        token = val;
+        const headers = new HttpHeaders()
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .set('Authorization',  'Bearer ' + token)
+        .set('responseType', 'text')
+        .set('site_id', environment.site_id)        
+        .set('audience', res)
+        //.set('site_key', environment.site_key)
+        let postData = this.signatureForm.value;
+        this.httpClient.post("http://localhost:3000/signature", postData, { headers: headers })
+        .subscribe(data => {
+          this.presentToast();
+        }, error => {
+          this.showError = true;
+          this.errorMessage = error.error.message
+        });
+
+      })
+
+
+
     });
   }
 
