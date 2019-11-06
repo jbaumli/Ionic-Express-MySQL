@@ -15,9 +15,9 @@ import { Storage } from '@ionic/storage';
 export class SignaturePage implements OnInit {
   showError: boolean; //**Added Line */
   errorMessage: string; //**Added Line */
+
   public signatureForm: FormGroup; //**Added Line */
   public submitAttempt: boolean = false; //**Added Line */
-  
   constructor(public router: Router, public alertController: AlertController, public formBuilder: FormBuilder, public httpClient: HttpClient, public toastController: ToastController, private storage: Storage) { } //**Modified Line */
 
   ngOnInit() {
@@ -62,21 +62,24 @@ export class SignaturePage implements OnInit {
     await toast.present();
   }
 
+
   sendPostRequest() {
-    let token = this.storage.get('ACCESS_TOKEN');
-    const headers = new HttpHeaders()
-    .set('Accept', 'application/json')
-    .set('Content-Type', 'application/json')
-    .set('Authorization',  'Bearer ' + token)
-    .set('responseType', 'text');
-    let postData = this.signatureForm.value;
-    this.httpClient.post("http://localhost:3000/signature", postData, { headers: headers })
+    var token: string;
+    this.storage.get('ACCESS_TOKEN').then((val) => {
+      token = val;
+      const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .set('Authorization',  'Bearer ' + token)
+      .set('responseType', 'text');
+      let postData = this.signatureForm.value;
+      this.httpClient.post("http://localhost:3000/signature", postData, { headers: headers })
       .subscribe(data => {
-        //this.presentAlert();
         this.presentToast();
       }, error => {
-          this.showError = true;
-          this.errorMessage = error.error.message
+        this.showError = true;
+        this.errorMessage = error.error.message
+      });
     });
   }
 
