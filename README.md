@@ -77,7 +77,7 @@ CREATE TABLE `customer_checkin` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `comments` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 CREATE TABLE `user_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `user_login` (
   `password` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 CREATE TABLE `license_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `site_id` varchar(75) NOT NULL,
@@ -93,5 +93,5 @@ CREATE TABLE `license_details` (
   `email_domain` varchar(75) NOT NULL,
   `license_limit` INT NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 ```  
