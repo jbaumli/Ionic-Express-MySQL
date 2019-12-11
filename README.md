@@ -6,7 +6,7 @@ An admin user must first register and log in, then the application is ready to c
 
 ### Project Structure
 
-This project is made up of 3 distint parts: the frontend, backend, and database.
+This project is made up of 3 distinct parts: the frontend, backend, and database.
 
 ### Frontend - Using Ionic 4
 
