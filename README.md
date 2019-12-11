@@ -100,7 +100,7 @@ CREATE TABLE `license_details` (
 
 Start express (In first command window):<br/>
 C:\>`cd C:\Ionic-Express-MySQL\ExpressServer`<br/>
-C:\Ionic-Express-MySQL\ExpressServer>`npm start`<br/>
+C:\Ionic-Express-MySQL\ExpressServer>`npm start`<br/><br/>
 Start ionic (In second command window):<br/>
 C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
 C:\Ionic-ExpressMySQL\IonicForm>`ionic serve`<br/>
