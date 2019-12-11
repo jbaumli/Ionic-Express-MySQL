@@ -48,5 +48,17 @@ C:\Ionic-Express-MySQL\IonicForm>`ionic generate guard guards/nonauth`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`ionic generate module members/member-routing –flat`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`mkdir src\assets\img`<br/>
 C:\Ionic-Express-MySQL-Node\IonicForm>`ionic cordova plugin add cordova-plugin-file`<br/>
-*(\*Overwrite: y)*<br/>
+*(\* Overwrite: y)*<br/>
 
+### Express Install and Setup
+C:\Ionic-Express-MySQL>`mkdir ExpressServer`<br/>
+C:\Ionic-Express-MySQL>`cd .\ExpressServer`<br/>
+C:\Ionic-Express-MySQL\ExpressServer>`npm init –y`<br/>
+C:\Ionic-Express-MySQL\ExpressServer>`npm install --save express body-parser mysql bcryptjs jsonwebtoken cors compression helmet dotenv-safe fs`<br/>
+Create ```diff -C:\Ionic-Express-MySQL\ExpressServer\index.js``` file and define database connection and routes<br/>
+Edit ```diff -C:\Ionic-Express-MySQL\ExpressServer\package.json``` to add start script<br/>
+```bash
+  "scripts": {
+    "start": "node index.js"
+  },
+```  
