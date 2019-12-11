@@ -8,11 +8,11 @@ An admin user must first register and log in, then the application is ready to c
 
 This project is made up of 3 distinct parts: the frontend, backend, and database.
 
-### Frontend - Using Ionic 4 (mobile app framework)
+#### Frontend - Using Ionic 4 (mobile app framework)
 
-### Backend - Using Express (web application framework for Node.js)
+#### Backend - Using Express (web application framework for Node.js)
 
-### Database - Using MySQL (relational database management system) 
+#### Database - Using MySQL (relational database management system) 
 
 ### Initial Project Setup
 Create a new directory for the project, open a command prompt, and go to it
