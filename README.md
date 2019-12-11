@@ -65,7 +65,7 @@ Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br
 
 ### MySQL Setup
 Create mysql database and customer_checkin, user_login, and license_details tables<br/>
-```bash
+```sql
 CREATE TABLE `customer_checkin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(75) NOT NULL,
