@@ -55,6 +55,7 @@ C:\Ionic-Express-MySQL>`mkdir ExpressServer`<br/>
 C:\Ionic-Express-MySQL>`cd .\ExpressServer`<br/>
 C:\Ionic-Express-MySQL\ExpressServer>`npm init –y`<br/>
 C:\Ionic-Express-MySQL\ExpressServer>`npm install --save express body-parser mysql bcryptjs jsonwebtoken cors compression helmet dotenv-safe fs`<br/>
+Create and edit *C:\Ionic-Express-MySQL\ExpressServer\jwt-module.js*<br/>
 Create *C:\Ionic-Express-MySQL\ExpressServer\index.js* file and define database connection and routes<br/>
 Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br/>
 ```javascript
@@ -62,6 +63,7 @@ Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br
     "start": "node index.js"
   },
 ```  
+
 
 ### MySQL Setup
 Create mysql database and customer_checkin, user_login, and license_details tables<br/>
