@@ -58,11 +58,13 @@ C:\Ionic-Express-MySQL\ExpressServer>`npm install --save express body-parser mys
 Create
 ```diff
 - C:\Ionic-Express-MySQL\ExpressServer\index.js
-``` file and define database connection and routes<br/>
+```
+file and define database connection and routes<br/>
 Edit
 ```diff
 - C:\Ionic-Express-MySQL\ExpressServer\package.json
-``` to add start script<br/>
+```
+to add start script<br/>
 ```bash
   "scripts": {
     "start": "node index.js"
