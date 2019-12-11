@@ -8,7 +8,7 @@ import { AuthResponse } from  '../public/auth-response';
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { User } from  '../public/user';
 import { tap } from  'rxjs/operators';
-import { environment} from './../../environments/environment'; //**Added Line */
+import { environment, ROUTES_URL} from './../../environments/environment'; //**Added Line */
 //**Added Section - End */
  
 @Injectable({
@@ -17,7 +17,7 @@ import { environment} from './../../environments/environment'; //**Added Line */
 
 export class AuthenticationService {
 //**Added Section - Start */  
-  AUTH_SERVER_ADDRESS:  string  =  'http://localhost:3000';
+  AUTH_SERVER_ADDRESS:  string  =  ROUTES_URL;
   authenticationState = new BehaviorSubject(false);
   token:any;
 //**Added Section - End */ 

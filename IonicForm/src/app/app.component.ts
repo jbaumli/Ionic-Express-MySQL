@@ -24,6 +24,11 @@ export class AppComponent {
       url: '/license',
       icon: 'lock'
     },
+    {
+      title: 'Download Records',
+      url: '/download',
+      icon: 'download'
+    }, 
   ];
   //**Added Section - End */
 

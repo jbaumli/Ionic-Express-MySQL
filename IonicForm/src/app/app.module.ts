@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage'; //**Added Line */
 import { HttpClientModule } from '@angular/common/http'; //**Added Line */
+import { File } from '@ionic-native/file/ngx'; //**Added Line */
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http'; //**Added Line */
   providers: [
     StatusBar,
     SplashScreen,
+    File, //**Added Line */
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

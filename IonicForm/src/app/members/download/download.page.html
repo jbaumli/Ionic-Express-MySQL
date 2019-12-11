@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="secondary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="fw700">Download</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login auth-page ion-padding">
+  <div class="ion-margin-top">
+    <section class="ion-text-center">
+      <ion-text color="light" class="text-secondary text15">Download Database Records</ion-text>
+    </section>
+    <section class="ion-text-center">
+      <ion-button (click)="downloadRecords()"><ion-icon name="arrow-forward"></ion-icon>Download</ion-button>
+    </section>
+  </div>
+  
+  <div class="auth-content">
+    <div class="animated fadeInDown ion-padding-horizontal ion-text-center">
+      <ion-list>
+        <ion-item *ngFor="let record of records[0];">
+          <ion-label>
+            <p>{{ record.firstname }} : {{ record.lastname }} : {{record.email}} : {{record.birthday}} : {{record.cellphone}} : {{record.created_at}}</p>  
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="ion-margin-top" *ngIf="records.length > 0">
+      <section class="ion-text-center">
+        <ion-text color="light" class="text-secondary text15">Delete Database Records</ion-text>
+      </section>
+      <section class="ion-text-center">
+        <ion-button (click)="deleteRecords()"><ion-icon name="arrow-forward"></ion-icon>Delete</ion-button>
+      </section>
+    </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-text color="light" class="text08">Copyright Information</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

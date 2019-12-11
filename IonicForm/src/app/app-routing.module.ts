@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'disclaimer', canActivate: [AuthGuard], loadChildren: './members/disclaimer/disclaimer.module#DisclaimerPageModule' }, /** Modified Line */  
   { path: 'signature', canActivate: [AuthGuard], loadChildren: './members/signature/signature.module#SignaturePageModule' }, /** Modified Line */  
   { path: 'license', canActivate: [AuthGuard], loadChildren: './members/license/license.module#LicensePageModule' }, /** Modified Line */  
+  { path: 'download', canActivate: [AuthGuard], loadChildren: './members/download/download.module#DownloadPageModule' }, /** Modified Line */ 
 ];
 
 @NgModule({

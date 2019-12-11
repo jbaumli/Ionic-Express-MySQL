@@ -17,6 +17,8 @@ var privateKEY = fs.readFileSync('./private.key', 'utf8');
 var publicKEY = fs.readFileSync('./public.key', 'utf8');
 
 app.use(cors());
+app.options('*', cors());
+
 app.use(compression()); //Compress all routes
 app.use(helmet());
 require('dotenv-safe').config();
@@ -35,7 +37,7 @@ const mc = mysql.createConnection({
 
 function jwtVerify (req, res, next) {
 	if (!req.headers.authorization) {
-		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
+		return res.status(403).send({ error: "No credentials sent!", "message": "Missing credentials, log out and back in!", "status": "403" });
 	}
 	let token;
 	if (req.headers.authorization) {
@@ -45,7 +47,7 @@ function jwtVerify (req, res, next) {
 	}
 	var legit = jwtmodule.verify(token, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});
 	if (!legit) {
-		return res.status(403).send({ error: 'No credentials sent!', "message": 'Missing credentials, log out and back in!', "status": '403' });
+		return res.status(403).send({ error: "No credentials sent!", "message": "Missing credentials, log out and back in!", "status": "403" });
 	}
 	next()
 };
@@ -82,7 +84,7 @@ const createUser  = (user, cb) => {
 
 
 router.get('/', (req, res) => {
-    res.status(200).send('This is an authentication server');
+    res.status(200).send("This is an authentication server");
 });
 
 
@@ -94,22 +96,22 @@ router.get('/license', (req, res) => {
 router.post('/register', (req, res) => {
 	const name  =  req.body.name;
 	const email  =  req.body.email;
-	const audience = req.headers.audience;
+	//const audience = req.headers.audience;
 	const password  =  bcrypt.hashSync(req.body.password);
 	findUserByEmail(email, (err, user)=>{
-		if (user[0]) return res.status(404).send({ "message": 'User already exists!', "status": '404' });		
+		if (user[0]) return res.status(404).send({ "message": "User already exists!", "status": "404" });		
 		verifyLicenseDetails(email, req.headers.site_id, process.env.site_key, (err, license) => {			
-			if (err) return res.status(500).send({ "message": 'License check error!', "status": '500' });	
-			if (!license[0]) return res.status(404).send({ "message": 'License not found! Please contact support!', "status": '404' });
+			if (err) return res.status(500).send({ "message": "License check error!", "status": "500" });	
+			if (!license[0]) return res.status(404).send({ "message": "License not found! Please contact support!", "status": "404" });
 			verifyLicenseCount(email, (err, license_count) => {		
-				if (license_count[0].EMAIL_COUNT >= license[0].license_limit ) return res.status(404).send({ "message": 'License limit exceeded! Please contact support!', "status": '404' });
+				if (license_count[0].EMAIL_COUNT >= license[0].license_limit ) return res.status(404).send({ "message": "License limit exceeded! Please contact support!", "status": "404" });
 				createUser([name, email, password], (err)=>{
 					if(err) return  res.status(500).send("Server error!");
 					findUserByEmail(email, (err, user)=>{
-						if (err) return  res.status(500).send('Server error!');  	
+						if (err) return  res.status(500).send("Server error!");  	
 						var token = jwtmodule.sign({ id: user[0].id }, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});						
 						user[0].access_token = token;						
-						res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
+						res.status(200).send({ "user": user, "message": "Success!", "status": "200" });
 					});
 				});
 			});
@@ -122,22 +124,37 @@ router.post('/login', (req, res) => {
     const email = req.body.email;
     const form_password = req.body.password;	
     findUserByEmail(email, (err, user) => {
-        if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
-        if (!user[0]) return res.status(404).send({ "message": 'User not found!', "status": '404' });
+        if (err) return res.status(500).send({ "message": "Server error!", "status": "500" });
+        if (!user[0]) return res.status(404).send({ "message": "User not found!", "status": "404" });
         const result = bcrypt.compareSync(form_password, user[0].password);
-        if (!result) return res.status(401).send({ "message": 'Password not valid!', "status": '401' });
+        if (!result) return res.status(401).send({ "message": "Password not valid!", "status": "401" });
 		var token = jwtmodule.sign({ id: user[0].id }, {issuer: process.env.site_key, subject: req.headers.site_id, audience: req.headers.audience});		
 		user[0].access_token = token;
-        res.status(200).send({ "user": user, "message": 'Success!', "status": '200' });
+        res.status(200).send({ "user": user, "message": "Success!", "status": "200" });
     });
 });
 
 
 const insertCustomer  = (customer, cb) => {
     return  mc.query('INSERT INTO customer_checkin (firstname, lastname, email, birthday, cellphone, status) VALUES (?,?,?,?,?,?)',customer, (err) => {
-        cb(err)
+        cb(err);
     });
-}
+};
+
+
+//rest api to select all rows from database table
+router.get('/download', (req, res) => {
+    mc.query('SELECT firstname, lastname, email FROM customer_checkin', function (error, results, fields) {
+	  res.status(200).send(JSON.stringify(results));
+	});	
+});
+
+//rest api to delete all rows from database table
+router.get('/delete', (req, res) => {
+    mc.query('DELETE FROM customer_checkin', function (error, results, fields) {
+	  res.status(200).send(JSON.stringify(results));
+	});	
+});
 
 
 router.use(jwtVerify).post('/signature', (req, res) => {
@@ -147,9 +164,9 @@ router.use(jwtVerify).post('/signature', (req, res) => {
 	const birthday = new Date(req.body.birthday);
 	const cellphone = req.body.cellphone;	
 	const terms = req.body.terms;
-	insertCustomer([firstname, lastname, email, birthday, cellphone, terms], (err, customer) => {
-		if (err) return res.status(500).send({ "message": 'Server error!', "status": '500' });
-		res.status(200).send({ "message": 'Success!', "status": '200' });
+	insertCustomer([firstname, lastname, email, birthday, cellphone, terms], (err, customer) => {		
+		if (err) return res.status(500).send({ "message": "Server error!", "status": "500", "firstname": firstname, "lastname": lastname, "email": email, "birthday": birthday, "cellphone": cellphone, "terms": terms });
+		res.status(200).send({ "message": "Success!", "status": "200" });
 	});
 });
 
