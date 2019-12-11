@@ -95,3 +95,13 @@ CREATE TABLE `license_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 ```  
+
+### Running the Application
+
+Start express (In first command window):<br/>
+C:\>`cd C:\Ionic-Express-MySQL\ExpressServer`<br/>
+C:\Ionic-Express-MySQL\ExpressServer>`npm start`<br/>
+Start ionic (In second command window):<br/>
+C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
+C:\Ionic-ExpressMySQL\IonicForm>`ionic serve`<br/>
+Open browser to [-http://localhost:8100] (may open by default)<br/>
