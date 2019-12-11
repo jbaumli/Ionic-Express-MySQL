@@ -55,16 +55,8 @@ C:\Ionic-Express-MySQL>`mkdir ExpressServer`<br/>
 C:\Ionic-Express-MySQL>`cd .\ExpressServer`<br/>
 C:\Ionic-Express-MySQL\ExpressServer>`npm init –y`<br/>
 C:\Ionic-Express-MySQL\ExpressServer>`npm install --save express body-parser mysql bcryptjs jsonwebtoken cors compression helmet dotenv-safe fs`<br/>
-Create
-```diff
-- C:\Ionic-Express-MySQL\ExpressServer\index.js
-```
-file and define database connection and routes<br/>
-Edit
-```diff
-- C:\Ionic-Express-MySQL\ExpressServer\package.json
-```
-to add start script<br/>
+Create *C:\Ionic-Express-MySQL\ExpressServer\index.js* file and define database connection and routes<br/>
+Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br/>
 ```bash
   "scripts": {
     "start": "node index.js"
