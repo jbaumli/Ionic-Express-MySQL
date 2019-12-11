@@ -62,3 +62,36 @@ Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br
     "start": "node index.js"
   },
 ```  
+
+### MySQL Setup
+Create mysql database and customer_checkin, user_login, and license_details tables<br/>
+```bash
+CREATE TABLE `customer_checkin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(75) NOT NULL,
+  `lastname` varchar(75) NOT NULL,
+  `email` varchar(125) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `cellphone` varchar(15) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `comments` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
+CREATE TABLE `user_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(75) NOT NULL,
+  `email` varchar(125) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
+CREATE TABLE `license_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `site_id` varchar(75) NOT NULL,
+  `site_key` varchar(125) NOT NULL,
+  `email_domain` varchar(75) NOT NULL,
+  `license_limit` INT NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
+```  
