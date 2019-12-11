@@ -24,3 +24,29 @@ C:\Ionic-Express-MySQL>`npm --version`<br/>
 *6.11.3*<br/>
 C:\Ionic-Express-MySQL>`node --version`<br/>
 *v10.16.2*
+
+### Ionic 4 Install and Setup
+C:\Ionic-Express-MySQL>`npm install -g ionic cordova`
+C:\Ionic-Express-MySQL>`ionic start IonicForm blank --type=angular`
+C:\Ionic-Express-MySQL>`cd .\IonicForm`
+C:\Ionic-Express-MySQL\IonicForm>`npm install --save @ionic/storage`
+C:\Ionic-Express-MySQL\IonicForm>`npm install @ionic-native/file`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate interface public/user`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate interface public/auth-response`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page public/login`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page public/register`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page members/dashboard`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page members/disclaimer`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page members/download`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page members/license`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate page members/signature`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate service services/authentication`
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate guard guards/auth`
+*(\* Use CanActivate as the option)*
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate guard guards/nonauth`
+*(\* Use CanActivate as the option)*
+C:\Ionic-Express-MySQL\IonicForm>`ionic generate module members/member-routing –flat`
+C:\Ionic-Express-MySQL\IonicForm>`mkdir src\assets\img`
+C:\Ionic-Express-MySQL-Node\IonicForm>`ionic cordova plugin add cordova-plugin-file`
+*(\*Overwrite: y)*
+
