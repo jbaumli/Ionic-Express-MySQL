@@ -104,4 +104,4 @@ C:\Ionic-Express-MySQL\ExpressServer>`npm start`<br/>
 Start ionic (In second command window):<br/>
 C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
 C:\Ionic-ExpressMySQL\IonicForm>`ionic serve`<br/>
-Open browser to [-http://localhost:8100] (may open by default)<br/>
+Open browser to [http://localhost:8100](http://localhost:8100) (may open by default)<br/>
