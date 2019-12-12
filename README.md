@@ -3,6 +3,7 @@
 This project is a mobile application that allows an admin, once authenticated, to collect and submit onsite user data.<br/>
 An example of this would be a kiosk mounted tablet that collects a user's agreement that they read a legal notice.<br/>
 An admin user must first register and log in, then the application is ready to collect the input data.<br/>
+The project as its laid out here will run on a Windows PC.  Moving the individual parts to a cloud based environment will require some conversion.<br/>
 
 ### Project Structure
 
@@ -63,7 +64,8 @@ Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br
     "start": "node index.js"
   },
 ```  
-
+A .env file will need to be created based off of .env.example with your own values.<br/>
+Create a 1024 bit key, copy contents into files public.key and private.key in the root express directory.<br/>
 
 ### MySQL Setup
 Create mysql database and customer_checkin, user_login, and license_details tables<br/>
