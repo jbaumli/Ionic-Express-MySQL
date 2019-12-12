@@ -110,3 +110,8 @@ Start ionic (In second command window):<br/>
 C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
 C:\Ionic-ExpressMySQL\IonicForm>`ionic serve`<br/>
 Open browser to [http://localhost:8100](http://localhost:8100) (may open by default)<br/>
+
+### Functional Notes
+
+For an admin to register an account, there must be a record in the license_details table.<br/>
+The site_id and site_key in Ionic must match, the email domain must match the admin's email domain, and the accounts registered with that domain must not exceed the license_limit value.<br/>
