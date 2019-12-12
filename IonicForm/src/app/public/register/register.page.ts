@@ -31,6 +31,7 @@ export class RegisterPage implements OnInit {
   //**Added Section - Start*/
   register(onRegisterForm) {
     this.authService.register(onRegisterForm.value).subscribe((res) => {
+      onRegisterForm.reset();
       this.router.navigateByUrl('dashboard');
     },
     error => {    
