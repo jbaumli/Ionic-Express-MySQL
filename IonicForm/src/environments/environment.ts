@@ -1,7 +1,6 @@
 export const environment = {
   production: false,
-  site_id: "HwXaSFuv",
-  site_key: "GWA9TjApcyAKEhnx"
+  site_id: "HwXaSFuv"
 };
 
 export const ROUTES_URL = 'http://localhost:3000';
