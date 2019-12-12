@@ -113,5 +113,9 @@ Open browser to [http://localhost:8100](http://localhost:8100) (may open by defa
 
 ### Functional Notes
 
-For an admin to register an account, there must be a record in the license_details table.<br/>
-The site_id and site_key in Ionic must match, the email domain must match the admin's email domain, and the accounts registered with that domain must not exceed the license_limit value.<br/>
+For an admin to register an account, several values must be in place in the license_details table.<br/>
+* site_id: must match value in Ionic's /src/environments files.
+* site_key: must match value in Ionic's /src/environments files.
+* email_domain: must match the domain of the email that is being input into Ionic's registration form.
+* license_limit: the number of users in the user_login table with a matching email domain of the one being registered, must not exceed this value. 
+
