@@ -18,7 +18,7 @@
       <ion-button (click)="downloadRecords()"><ion-icon name="arrow-forward"></ion-icon>Download</ion-button>
     </section>
   </div>
-  
+  <!--
   <div class="auth-content">
     <div class="animated fadeInDown ion-padding-horizontal ion-text-center">
       <ion-list>
@@ -30,6 +30,25 @@
       </ion-list>
     </div>
   </div>
+  -->
+
+  <ngx-datatable 
+    class="material" 
+    [limit]="8" 
+    [rows]="records[0]"
+    [rowHeight]="50" 
+    [columnMode]="'force'"
+    [sortType]="'multi'" 
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [reorderable]="false">
+    <ngx-datatable-column name="First Name" prop="firstname"></ngx-datatable-column>
+    <ngx-datatable-column name="Last Name" prop="lastname"></ngx-datatable-column>
+    <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>
+    <ngx-datatable-column name="Birthday" prop="birthday"></ngx-datatable-column>
+    <ngx-datatable-column name="Cell Phone"  prop="cellphone"></ngx-datatable-column>
+    <ngx-datatable-column name="Created At" prop="created_at"></ngx-datatable-column>
+  </ngx-datatable>
 
   <div class="ion-margin-top" *ngIf="records.length > 0">
       <section class="ion-text-center">

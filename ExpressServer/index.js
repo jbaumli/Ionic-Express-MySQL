@@ -144,7 +144,7 @@ const insertCustomer  = (customer, cb) => {
 
 //rest api to select all rows from database table
 router.get('/download', (req, res) => {
-    mc.query('SELECT firstname, lastname, email FROM customer_checkin', function (error, results, fields) {
+    mc.query('SELECT * FROM customer_checkin', function (error, results, fields) {
 	  res.status(200).send(JSON.stringify(results));
 	});	
 });

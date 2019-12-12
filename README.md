@@ -30,8 +30,9 @@ C:\Ionic-Express-MySQL>`node --version`<br/>
 C:\Ionic-Express-MySQL>`npm install -g ionic cordova`<br/>
 C:\Ionic-Express-MySQL>`ionic start IonicForm blank --type=angular`<br/>
 C:\Ionic-Express-MySQL>`cd .\IonicForm`<br/>
-C:\Ionic-Express-MySQL\IonicForm>`npm install --save @ionic/storage`<br/>
+C:\Ionic-Express-MySQL\IonicForm>`npm install @ionic/storage`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`npm install @ionic-native/file`<br/>
+C:\Ionic-Express-MySQL\IonicForm>`npm install @swimlane/ngx-datatable`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`ionic generate interface public/user`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`ionic generate interface public/auth-response`<br/>
 C:\Ionic-Express-MySQL\IonicForm>`ionic generate page public/login`<br/>
@@ -55,7 +56,7 @@ C:\Ionic-Express-MySQL-Node\IonicForm>`ionic cordova plugin add cordova-plugin-f
 C:\Ionic-Express-MySQL>`mkdir ExpressServer`<br/>
 C:\Ionic-Express-MySQL>`cd .\ExpressServer`<br/>
 C:\Ionic-Express-MySQL\ExpressServer>`npm init –y`<br/>
-C:\Ionic-Express-MySQL\ExpressServer>`npm install --save express body-parser mysql bcryptjs jsonwebtoken cors compression helmet dotenv-safe fs`<br/>
+C:\Ionic-Express-MySQL\ExpressServer>`npm install express body-parser mysql bcryptjs jsonwebtoken cors compression helmet dotenv-safe fs`<br/>
 Create and edit *C:\Ionic-Express-MySQL\ExpressServer\jwt-module.js*<br/>
 Create *C:\Ionic-Express-MySQL\ExpressServer\index.js* file and define database connection and routes<br/>
 Edit *C:\Ionic-Express-MySQL\ExpressServer\package.json* to add start script:<br/>

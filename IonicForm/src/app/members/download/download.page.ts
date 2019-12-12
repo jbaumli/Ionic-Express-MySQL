@@ -9,11 +9,13 @@ import { AlertController, ToastController } from '@ionic/angular'; //**Added Lin
 @Component({
   selector: 'app-download',
   templateUrl: './download.page.html',
-  styleUrls: ['./download.page.scss'],
+  styleUrls: ['./download.page.scss']
 })
 export class DownloadPage implements OnInit {
   AUTH_SERVER_ADDRESS:  string  =  ROUTES_URL;
   records : any = [];
+  tablestyle = 'bootstrap';
+  rows: Object[];
   constructor(public router: Router, public httpClient: HttpClient, private file: File, public toastController: ToastController) { } //**Modified Line */
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class DownloadPage implements OnInit {
   downloadRecords() {
     return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/download`).subscribe(data=>{
       this.records = [data];
+      this.rows = [data];
       var fileDir = '/Android/data/io.ionic.starter'; 
       var filename = "result.json";
       this.file.writeFile(fileDir, filename, this.records, {replace: true}) ;
