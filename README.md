@@ -69,7 +69,7 @@ Create a 1024 bit key, copy contents into files public.key and private.key in th
 
 ### MySQL Setup
 Create mysql database and customer_checkin, user_login, and license_details tables<br/>
-*Steps to install MySQL have been left out*
+*(Steps to install MySQL have been left out of this guide.)*
 ```sql
 CREATE TABLE `customer_checkin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
