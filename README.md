@@ -120,3 +120,55 @@ For an admin to register an account, several values must be in place in the lice
 * email_domain: must match the domain of the email that is being input into Ionic's registration form.
 * license_limit: the number of users in the user_login table with a matching email domain of the one being registered, must not exceed this value. 
 
+### Deploying the frontend (Ionic) to AWS Amplify
+
+Condensed instructions using AWS CLI - <use your environment settings for all prompts><br/>
+In a Windows Command Prompt window<br/>
+C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>`npm install -g @aws-amplify/cli`<br/>
+<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>`amplify configure`<br/>
+Follow these steps to set up access to your AWS account:<br/>
+<br/>
+Specify the AWS Region<br/>
+? region:  `< >`<br/>
+Specify the username of the new IAM user:<br/>
+? user name:  `< >`<br/>
+<br/>
+Enter the access key of the newly created user:<br/>
+? accessKeyId:  `< >`<br/>
+? secretAccessKey:  `< >`<br/>
+This would update/create the AWS Profile in your local machine<br/>
+? Profile Name:  `amplify`<br/>
+<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>`ionic build --prod`<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>`amplify init`<br/>
+Note: It is recommended to run this command from the root of your app directory<br/>
+? Enter a name for the project `Ionic-Amplify`<br/>
+? Enter a name for the environment `prod`<br/>
+? Choose your default editor: `Visual Studio Code`<br/>
+? Choose the type of app that you're building `javascript`<br/>
+Please tell us about your project<br/>
+? What javascript framework are you using `ionic`<br/>
+? Source Directory Path:  `src`<br/>
+? Distribution Directory Path: `www`<br/>
+? Build Command:  `npm.cmd run-script build`<br/>
+? Start Command: `ionic serve`<br/>
+<br/>
+? Do you want to use an AWS profile? `Yes`<br/>
+? Please choose the profile you want to use `amplify`<br/>
+<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>amplify hosting add<br/>
+? Select the environment setup: `< >`<br/>
+? hosting bucket name `< >`<br/>
+<br/>
+<br/>
+C:\Ionic-Express-MySQL\IonicForm>`amplify publish`<br/>
+<br/>
+<br/>
+Open published endpoint URL in browser on the device<br/>
