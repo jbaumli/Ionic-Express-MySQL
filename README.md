@@ -122,7 +122,8 @@ For an admin to register an account, several values must be in place in the lice
 
 ### Deploying the frontend (Ionic) to AWS Amplify
 
-Condensed instructions using AWS CLI - use your environment settings for all prompts<br/>
+#### Condensed instructions using AWS CLI - use your environment settings for all prompts
+
 In a Windows Command Prompt window<br/>
 C:\>`cd C:\Ionic-Express-MySQL\IonicForm`<br/>
 <br/>
